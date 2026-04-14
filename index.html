@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BEAST MODE — Akshat</title>
+<meta name="theme-color" content="#080808">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Beast Mode">
+<link rel="manifest" id="manifestLink">
+<link rel="apple-touch-icon" id="appleIcon">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--fire:#CC0000;--fire2:#FF1A1A;--gold:#FF3333;--gold2:#FF4444;--bg:#000000;--bg2:#0A0000;--glass:rgba(180,0,0,0.06);--glass2:rgba(180,0,0,0.1);--line:rgba(180,0,0,0.2);--line-hot:rgba(204,0,0,0.4);--txt:#F0E8E8;--txt2:rgba(240,220,220,0.55);--txt3:rgba(240,200,200,0.28);--r:18px;--rs:12px;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{background:var(--bg);}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-height:100vh;min-height:100dvh;overflow-x:hidden;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 40px);}
+body::before{content:'';position:fixed;inset:0;background:
+    radial-gradient(ellipse 500px 600px at -5% 0%,rgba(180,0,0,0.18) 0%,transparent 60%),
+    radial-gradient(ellipse 400px 500px at 105% 100%,rgba(150,0,0,0.15) 0%,transparent 60%),
+    radial-gradient(ellipse 300px 300px at 50% 50%,rgba(80,0,0,0.08) 0%,transparent 70%);
+    pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:440px;margin:0 auto;padding:0 20px 60px;}
+/* CREATOR */
+.creator-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 0 0;opacity:0;animation:fadeUp 0.5s 0.05s forwards;}
+.creator-name{font-family:'Cormorant Garamond',serif;font-size:11px;font-style:italic;color:var(--txt3);letter-spacing:2px;}
+.creator-handle{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:1px;margin-top:1px;opacity:0.7;}
+.creator-dot{width:6px;height:6px;border-radius:50%;background:#CC0000;box-shadow:0 0 8px #CC0000;animation:pdot 2s ease-in-out infinite;}
+@keyframes pdot{0%,100%{box-shadow:0 0 8px #CC0000;opacity:1;}50%{box-shadow:0 0 20px #FF0000;opacity:0.8;}}
+/* HEADER */
+.header{padding:22px 0 28px;}
+.header-line{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:6px;color:rgba(220,0,0,0.9);text-transform:uppercase;margin-bottom:8px;opacity:0;animation:fadeUp 0.6s 0.15s forwards;}
+.header-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;letter-spacing:4px;color:var(--txt2);margin-bottom:4px;text-transform:uppercase;opacity:0;animation:fadeUp 0.6s 0.2s forwards;}
+.header-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(58px,20vw,80px);line-height:0.85;letter-spacing:4px;opacity:0;animation:fadeUp 0.7s 0.25s forwards;}
+.t1{background:linear-gradient(160deg,#fff 20%,rgba(255,255,255,0.35) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.t2{background:linear-gradient(135deg,#CC0000 0%,#FF3333 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--txt3);letter-spacing:2px;margin-top:10px;opacity:0;animation:fadeUp 0.6s 0.35s forwards;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(180,0,0,0.5) 50%,transparent);margin-bottom:24px;opacity:0;animation:fadeUp 0.5s 0.4s forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+/* DATEBAR */
+.datebar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--glass);border:1px solid var(--line);border-radius:var(--r);margin-bottom:20px;opacity:0;animation:fadeUp 0.6s 0.45s forwards;}
+.date-day{font-size:13px;font-weight:500;}
+.date-full{font-family:'DM Mono',monospace;font-size:10px;color:var(--txt2);letter-spacing:1px;margin-top:2px;}
+.streak-pill{display:flex;align-items:center;gap:7px;background:rgba(150,0,0,0.15);border:1px solid rgba(204,0,0,0.35);border-radius:30px;padding:7px 15px;font-family:'DM Mono',monospace;font-size:11px;color:var(--gold2);letter-spacing:1px;}
+/* QUOTE */
+.quote-card{position:relative;background:linear-gradient(145deg,rgba(255,69,0,0.06),rgba(255,255,255,0.02));border:1px solid rgba(180,0,0,0.4);border-radius:var(--r);padding:28px 24px 20px;margin-bottom:16px;cursor:pointer;overflow:hidden;transition:border-color 0.3s,transform 0.2s;opacity:0;animation:fadeUp 0.6s 0.5s forwards;}
+.quote-card:active{transform:scale(0.985);}
+.quote-glyph{position:absolute;top:-15px;right:18px;font-family:'Cormorant Garamond',serif;font-size:130px;color:rgba(201,168,76,0.07);line-height:1;user-select:none;pointer-events:none;}
+.ai-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,69,0,0.08);border:1px solid rgba(255,69,0,0.2);border-radius:20px;padding:3px 10px;font-family:'DM Mono',monospace;font-size:9px;color:var(--fire);letter-spacing:1px;margin-bottom:14px;}
+.quote-loading{display:none;flex-direction:column;gap:8px;margin-bottom:14px;}
+.quote-loading.show{display:flex;}
+.shimmer{height:15px;border-radius:4px;background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.09) 50%,rgba(255,255,255,0.04) 75%);background-size:200% 100%;animation:sh 1.5s infinite;}
+.shimmer.s1{width:90%}.shimmer.s2{width:70%}.shimmer.s3{width:80%}
+@keyframes sh{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.quote-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;line-height:1.5;position:relative;margin-bottom:16px;transition:opacity 0.3s;color:rgba(255,255,255,0.92);}
+.quote-footer{display:flex;align-items:center;justify-content:space-between;}
+.quote-author{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--fire);text-transform:uppercase;}
+.quote-hint{font-size:11px;color:var(--txt3);}
+/* MINDSET */
+.mindset-card{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:28px;display:flex;gap:14px;align-items:flex-start;opacity:0;animation:fadeUp 0.6s 0.55s forwards;}
+.mindset-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.mindset-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--txt3);text-transform:uppercase;margin-bottom:5px;}
+.mindset-text{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.55;color:rgba(255,255,255,0.65);font-style:italic;}
+/* SEC */
+.sec-label{display:flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--txt3);text-transform:uppercase;margin-bottom:14px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--line);}
+/* PROGRESS */
+.progress-block{margin-bottom:28px;opacity:0;animation:fadeUp 0.6s 0.6s forwards;}
+.progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
+.progress-count{font-size:12px;color:var(--txt3);font-family:'DM Mono',monospace;letter-spacing:1px;}
+.progress-pct{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;background:linear-gradient(135deg,var(--fire),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.progress-track{height:2px;background:var(--glass2);border-radius:1px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:1px;background:linear-gradient(90deg,#880000,#CC0000,#FF2222);box-shadow:0 0 16px rgba(200,0,0,0.5);transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+/* VICTORY */
+.victory{display:none;text-align:center;padding:28px 20px;background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(255,69,0,0.05));border:1px solid rgba(180,0,0,0.35);border-radius:var(--r);margin-bottom:24px;}
+.victory.show{display:block;animation:vglow 2.5s ease-in-out infinite;}
+@keyframes vglow{0%,100%{box-shadow:0 0 20px rgba(180,0,0,0.15);}50%{box-shadow:0 0 50px rgba(220,0,0,0.4);}}
+.victory-emoji{font-size:44px;margin-bottom:10px;}
+.victory-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:#FF2222;}
+.victory-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--txt3);margin-top:6px;}
+/* TASKS */
+.tasks-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;}
+.task-item{display:flex;align-items:center;gap:14px;padding:15px 16px;background:var(--glass);border:1px solid var(--line);border-radius:var(--rs);transition:all 0.2s;position:relative;overflow:hidden;}
+.task-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#880000,#FF2222);transform:scaleY(0);transform-origin:bottom;transition:transform 0.3s ease;}
+.task-item:hover::before,.task-item.done::before{transform:scaleY(1);}
+.task-item.done::before{background:var(--gold);}
+.task-item.done{opacity:0.38;}
+.task-cb{width:22px;height:22px;border:1px solid rgba(200,0,0,0.4);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;cursor:pointer;transition:all 0.2s;color:#080808;font-weight:700;}
+.task-item.done .task-cb{background:linear-gradient(135deg,#880000,#CC0000);border-color:#CC0000;box-shadow:0 0 10px rgba(200,0,0,0.4);}
+.task-info{flex:1;min-width:0;cursor:pointer;}
+.task-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.task-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--txt3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.task-item.done .task-name{text-decoration:line-through;}
+.task-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);flex-shrink:0;opacity:0.8;}
+.task-edit-btn,.task-delete-btn{background:none;border:1px solid var(--line);border-radius:5px;color:var(--txt3);font-size:12px;padding:4px 7px;cursor:pointer;flex-shrink:0;transition:all 0.2s;line-height:1.4;}
+.task-edit-btn:hover{border-color:#CC0000;color:#CC0000;}
+.task-delete-btn:hover{border-color:rgba(255,60,60,0.4);color:rgba(255,80,80,0.7);}
+@keyframes tick{0%{transform:scale(1.04);}100%{transform:scale(1);}}
+.just-done{animation:tick 0.2s ease-out;}
+/* ADD */
+.add-form{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px;margin-bottom:28px;}
+.add-form-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--txt3);text-transform:uppercase;margin-bottom:16px;}
+.form-row{display:flex;gap:10px;margin-bottom:10px;}
+.field{flex:1;background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:var(--rs);padding:12px 14px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;min-width:0;}
+.field:focus{border-color:rgba(255,69,0,0.4);background:rgba(255,69,0,0.03);}
+.field::placeholder{color:var(--txt3);}
+.field.tf{width:110px;flex:none;}
+.add-btn{width:100%;padding:14px;background:linear-gradient(135deg,#8B0000,#CC0000);border:none;border-radius:var(--rs);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;cursor:pointer;transition:opacity 0.2s,transform 0.15s;box-shadow:0 4px 28px rgba(180,0,0,0.4);}
+.add-btn:active{transform:scale(0.98);}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;}
+.stat-card{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:20px 10px;text-align:center;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;background:linear-gradient(135deg,var(--fire),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--txt3);text-transform:uppercase;margin-top:5px;}
+.reset-btn{width:100%;background:none;border:1px solid var(--line);border-radius:var(--rs);padding:13px;color:var(--txt3);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.reset-btn:hover{border-color:rgba(255,60,60,0.3);color:rgba(255,80,80,0.6);}
+/* FOOTER */
+.footer{text-align:center;padding:32px 0 8px;border-top:1px solid var(--line);margin-top:8px;}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:var(--txt3);letter-spacing:3px;}
+.footer-insta{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;margin-top:4px;opacity:0.5;}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(12px);}
+.modal-overlay.open{display:flex;}
+.modal{background:#111;border:1px solid rgba(255,255,255,0.08);border-top:1px solid rgba(201,168,76,0.15);border-radius:24px 24px 0 0;padding:28px 22px 44px;width:100%;max-width:440px;animation:slideUp 0.3s cubic-bezier(0.34,1.2,0.64,1);}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-handle{width:32px;height:3px;background:rgba(255,255,255,0.12);border-radius:2px;margin:0 auto 24px;}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--fire);margin-bottom:20px;}
+.modal-field{margin-bottom:14px;}
+.modal-label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--txt3);text-transform:uppercase;margin-bottom:7px;}
+.modal-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:var(--rs);padding:12px 14px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;}
+.modal-input:focus{border-color:rgba(255,69,0,0.4);}
+.modal-actions{display:flex;gap:10px;margin-top:22px;}
+.modal-save{flex:1;background:linear-gradient(135deg,#880000,#CC0000);border:none;border:none;border-radius:var(--rs);padding:14px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;cursor:pointer;box-shadow:0 4px 20px rgba(255,69,0,0.25);}
+.modal-cancel{background:none;border:1px solid var(--line);border-radius:var(--rs);padding:14px 18px;color:var(--txt3);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="creator-bar">
+    <div>
+      <div class="creator-name">crafted by akshat</div>
+      <div class="creator-handle">@tf.aks_</div>
+    </div>
+    <div class="creator-dot"></div>
+  </div>
+  <div class="header">
+    <div class="header-line">Daily Upgrade System</div>
+        <div class="header-title"><div class="t1">BEAST</div><div class="t2">MODE</div></div>
+    <div class="header-sub">Discipline over motivation — every single day</div>
+  </div>
+  <div class="divider"></div>
+  <div class="datebar">
+    <div><div class="date-day" id="dateDay">—</div><div class="date-full" id="dateFull">—</div></div>
+    <div class="streak-pill" id="streakBadge">🔥 0 DAY STREAK</div>
+  </div>
+  
+  <div class="mindset-card">
+    <div class="mindset-icon">⚡</div>
+    <div><div class="mindset-label">Today's Mindset</div><div class="mindset-text" id="mindsetText">—</div></div>
+  </div>
+  <div class="progress-block">
+    <div class="sec-label">Today's Progress</div>
+    <div class="progress-top">
+      <div class="progress-count" id="progressLabel">0 / 0</div>
+      <div class="progress-pct" id="progressPct">0%</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+  <div class="victory" id="victoryBanner">
+    <div class="victory-emoji">🏆</div>
+    <div class="victory-title">BEAST COMPLETED</div>
+    <div class="victory-sub">You crushed everything today. Tomorrow, go harder.</div>
+  </div>
+  <div class="sec-label">Daily Disciplines</div>
+  <div class="tasks-list" id="tasksGrid"></div>
+  <div class="add-form">
+    <div class="add-form-label">Add New Discipline</div>
+    <div class="form-row">
+      <input class="field" id="newTaskName" placeholder="Task name..." maxlength="50"/>
+      <input class="field tf" id="newTaskTime" placeholder="7:00 AM" maxlength="10"/>
+    </div>
+    <input class="field" id="newTaskSub" placeholder="Short description (optional)" maxlength="80" style="width:100%;margin-bottom:12px;"/>
+    <button class="add-btn" onclick="addTask()">+ ADD</button>
+  </div>
+  <div class="sec-label">Your Strength</div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" id="statStreak">0</div><div class="stat-label">Day Streak</div></div>
+    <div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Tasks Done</div></div>
+    <div class="stat-card"><div class="stat-num" id="statDays">0</div><div class="stat-label">Days Active</div></div>
+  </div>
+  <button class="reset-btn" onclick="resetDay()">Reset Day</button>
+  <div class="footer">
+    <div class="footer-name">made with fire by akshat</div>
+    <div class="footer-insta">@tf.aks_</div>
+  </div>
+</div>
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Edit Task</div>
+    <div class="modal-field"><label class="modal-label">Task Name</label><input class="modal-input" id="editName" maxlength="50"/></div>
+    <div class="modal-field"><label class="modal-label">Description</label><input class="modal-input" id="editSub" maxlength="80"/></div>
+    <div class="modal-field"><label class="modal-label">Time</label><input class="modal-input" id="editTime" maxlength="10" placeholder="6:30 AM"/></div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveEdit()">SAVE KARO</button>
+    </div>
+  </div>
+</div>
+<script>
+const QUOTES=["Uth. Kaam kar. Baad mein so jaana.","Motivation jhooth hai. Discipline sach hai.","Pain temporary hai. Regret permanent hai.","Ek din ya day one — tu choose karta hai.","Jo aaj mushkil hai woh kal teri taaqat banega.","Soft rehega toh duniya tujhe toda degi.","Average log excuses dete hain. Champions results.","Neend kam kar. Kaam zyada kar.","Duniya unko hi yaad karti hai jo ruke nahi.","Har wo cheez jo uncomfortable karti hai — wahan growth hai.","Tu strong hai ya sirf strong dikhta hai? Fark samajh.","Jab dil nahi karta — tab hi asli mehnat hoti hai.","Dard ko accept kar. Woh tujhe better bana raha hai.","Log teri story nahi jaante. Results jaante hain.","Kal se nahi. Abhi se.","Discipline woh karta hai jo emotions nahi karne dete.","Failure tab hota hai jab tu try karna band kar deta hai.","Teri limit woh nahi jo tu soch raha hai.","Khud se competition kar. Baaki sab irrelevant hain.","Koi shortcut nahi hai. Sirf kaam hai.","Jo tu aaj ignore kar raha hai kal teri problem banega.","Bhaag mat. Mushkilon se. Woh tujhe train kar rahi hain.","Ek ghanta roz apne aap ke liye. Itna toh ban sakta hai.","Zindagi mein sirf do cheezein hain — excuses aur results.","Haar mat. Log haarte hain kyunki woh ruk jaate hain.","Teri body aur mind tujhse zyada kar sakti hain — try toh kar.","Jo chhup ke kaam karta hai woh openly jeet jaata hai.","Success ka formula simple hai: kaam karo jab koi nahi dekh raha.","Sab ka time aata hai — tera bhi aayega. Tab ke liye taiyaar reh.","Teri mehnat ka compounding hota hai. Ruka mat.","Jo cheez tujhe rokti hai woh sirf tu hi hai.","Kal waali galti aaj mat karna. Yahi growth hai.","Log successful nahi hote kyunki woh consistent nahi hote.","Apni kahani khud likh. Koi aur nahi likhega.","Zindagi short hai. Mediocre mat reh.","Jab sab so rahe hain tab tu kaam kar.","Hard work beats talent jab talent hard work nahi karta.","Tujhe inspire karne ki zaroorat nahi. Bas kaam karna hai.","Chhota shuru kar. Consistent reh. Bada ho jaayega.","Teri problems tujhse badi nahi hain. Tu unse bada hai.","Roz thoda better hona hi kaafi hai.","Jab sab quit kar rahe hain tab tu double down kar.","Jo tune start kiya hai woh finish kar. Adhoora mat chhod.","Apne aap ko prove karna kisi aur ke liye nahi — apne liye hai.","Darr se mat bhaag. Darr ke saamne chal.","Teri energy wahan lagao jahan results ho.","Complain karna band kar. Solution dhundh.","Tu woh banega jo tu roz karta hai.","Greatness accident se nahi aati. Choice se aati hai.","Jo tujhe rokne ki koshish karte hain woh tujhse darte hain.","Teri mehnat kisi ko nahi dikhti. Tera success sabko dikhega.","Patience aur persistence — yeh do cheezein sab kuch kar sakti hain.","Apne sapnon ke liye itna kaam kar ki luck bhi sharma jaaye.","Ek step roz. 365 steps ek saal.","Jab kuch nahi ho raha lag raha ho — tab bhi mat ruk.","Tujhe perfect hone ki zaroorat nahi. Consistent hone ki hai.","Waqt waisa nahi hoga jaisa tu chahta hai. Tu waisa bann jo waqt maange.","Log reasons dhundh te hain. Champions raaste dhundh te hain.","Mushkil waqt mein hi pata chalta hai kaun kitna strong hai.","Focus on progress, not perfection.","Ek din mein ek kaam acha kar. Roz.","Jab tak hai breath — tab tak hai chance.","Teri potential unlimited hai. Sirf tu hi limit hai.","Jo tune aaj shuru kiya kal tera future thank karega.","Duniya waale sirf tab dhyan dete hain jab results aate hain.","Roz uthna aur kaam karna — yahi hero ka kaam hai.","Teri zindagi teri responsibility hai.","Weak log trends follow karte hain. Strong log benchmark set karte hain.","Jo tujhe daraa raha hai wahi tujhe strong bana raha hai.","Aaj ka effort aur kal ka result — dono connected hain.","Khud par believe kar. Baaki sab baad mein hoga.","Koi bhi successful aasman se nahi tapka. Gira, utha, chala.","Tu jitna sochta hai usse zyada capable hai.","Consistency is boring. Consistency is everything.","Teri taaqat teri problems mein chhupi hai.","Jab tak chal sakta hai — chal. Jab nahi chal sakta — tab bhi chal."];
+
+const MINDSETS=["No one is watching — and yet you give your best. That is character.","Being better than yesterday is enough. Compare yourself to no one else.","Feeling uncomfortable? Perfect. That is exactly where growth lives.","Your habits are more powerful than your intentions. Set them right.","One decision. One action. One step. Today, that is enough.","When motivation fails — discipline carries you. Use it.","You did not stop because you were weak. You stopped because you did not try.","What others think of you is not your concern. Results are your concern.","One more task before sleep. That is the difference between you and the rest.","Every night before sleep, ask — was today better than yesterday?"];
+
+const DEFAULT_TASKS=[
+  {name:"Wake Up (5-6 AM)",sub:"Life matters more than sleep",time:"5:00 AM",done:false},
+  {name:"Exercise / Workout",sub:"30 minutes minimum — no excuses",time:"6:00 AM",done:false},
+  {name:"Cold Shower",sub:"Crush weak feelings",time:"6:45 AM",done:false},
+  {name:"Study / Skill Learning",sub:"1 hour — focused, phone away",time:"8:00 AM",done:false},
+  {name:"Complete One Task",sub:"Complete one important task today",time:"11:00 AM",done:false},
+  {name:"Eat Healthy",sub:"Your body gives what you give it",time:"1:00 PM",done:false},
+  {name:"Daily Review",sub:"10 min — what was done, what to improve",time:"9:00 PM",done:false},
+  {name:"Plan Tomorrow",sub:"Never wake up without a plan",time:"10:00 PM",done:false},
+];
+
+let state={tasks:[],mindsetIndex:0,streak:0,totalDone:0,daysActive:0,lastDate:null};
+let quoteQueue=[];
+
+function getNextQuote(){
+  if(quoteQueue.length===0) quoteQueue=[...QUOTES].sort(()=>Math.random()-0.5);
+  return quoteQueue.pop();
+}
+
+function saveState(){try{localStorage.setItem('beastmode_akshat',JSON.stringify(state));}catch(e){}}
+function loadState(){try{const s=localStorage.getItem('beastmode_akshat');if(s)state={...state,...JSON.parse(s)};}catch(e){}}
+
+function init(){
+  loadState();
+  const today=new Date().toDateString();
+  if(state.lastDate!==today){
+    if(state.lastDate){
+      const y=new Date();y.setDate(y.getDate()-1);
+      const all=state.tasks.length>0&&state.tasks.every(t=>t.done);
+      if(all&&state.lastDate===y.toDateString())state.streak++;
+      else if(state.lastDate!==y.toDateString())state.streak=0;
+      state.daysActive++;
+    }
+    state.tasks=JSON.parse(JSON.stringify(DEFAULT_TASKS));
+    state.lastDate=today;
+    state.mindsetIndex=Math.floor(Math.random()*MINDSETS.length);
+    saveState();
+  }
+  renderDate();renderMindset();renderTasks();renderStats();
+}
+
+function renderDate(){
+  const d=new Date();
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('dateDay').textContent=days[d.getDay()];
+  document.getElementById('dateFull').textContent=d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+  document.getElementById('streakBadge').textContent='🔥 '+state.streak+' DAY STREAK';
+}
+
+function renderMindset(){
+  document.getElementById('mindsetText').textContent=MINDSETS[state.mindsetIndex%MINDSETS.length];
+}
+
+function renderTasks(){
+  const grid=document.getElementById('tasksGrid');
+  grid.innerHTML='';
+  state.tasks.forEach((task,i)=>{
+    const el=document.createElement('div');
+    el.className='task-item'+(task.done?' done':'');
+    const th=task.time?'<div class="task-time">'+task.time+'</div>':'<div class="task-time" style="opacity:0.1">--:--</div>';
+    el.innerHTML=
+      '<div class="task-cb" data-idx="'+i+'">'+(task.done?'&#10003;':'')+'</div>'+
+      '<div class="task-info"><div class="task-name">'+task.name+'</div><div class="task-sub">'+(task.sub||'')+'</div></div>'+
+      th+
+      '<button class="task-edit-btn" onclick="openEdit(event,'+i+')">&#9998;</button>'+
+      '<button class="task-delete-btn" onclick="deleteTask(event,'+i+')">&#128465;</button>';
+    el.querySelector('.task-cb').addEventListener('click',function(e){e.stopPropagation();toggleTask(i,el);});
+    el.querySelector('.task-info').addEventListener('click',function(){toggleTask(i,el);});
+    grid.appendChild(el);
+  });
+  updateProgress();
+}
+
+function renderStats(){
+  document.getElementById('statStreak').textContent=state.streak;
+  document.getElementById('statTotal').textContent=state.totalDone;
+  document.getElementById('statDays').textContent=state.daysActive||1;
+  document.getElementById('streakBadge').textContent='🔥 '+state.streak+' DAY STREAK';
+}
+
+function updateProgress(){
+  const done=state.tasks.filter(t=>t.done).length,total=state.tasks.length;
+  const pct=total===0?0:Math.round((done/total)*100);
+  document.getElementById('progressLabel').textContent=done+' / '+total;
+  document.getElementById('progressPct').textContent=pct+'%';
+  const fill=document.getElementById('progressFill');
+  if(fill) fill.style.width=pct+'%';
+  const b=document.getElementById('victoryBanner');
+  if(b){if(done===total&&total>0)b.classList.add('show');else b.classList.remove('show');}
+}
+
+function toggleTask(i,el){
+  state.tasks[i].done=!state.tasks[i].done;
+  if(state.tasks[i].done){state.totalDone++;el.classList.add('just-done');setTimeout(()=>el.classList.remove('just-done'),300);}
+  else state.totalDone=Math.max(0,state.totalDone-1);
+  saveState();renderTasks();renderStats();
+}
+
+let editingIndex=-1;
+
+function addTask(){
+  const name=document.getElementById('newTaskName').value.trim();
+  if(!name){document.getElementById('newTaskName').focus();return;}
+  const time=document.getElementById('newTaskTime').value.trim();
+  const sub=document.getElementById('newTaskSub').value.trim();
+  state.tasks.push({name,sub:sub||'Custom discipline',time,done:false});
+  document.getElementById('newTaskName').value='';
+  document.getElementById('newTaskTime').value='';
+  document.getElementById('newTaskSub').value='';
+  saveState();renderTasks();
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function openEdit(e,i){
+  e.stopPropagation();editingIndex=i;
+  const t=state.tasks[i];
+  document.getElementById('editName').value=t.name;
+  document.getElementById('editSub').value=t.sub||'';
+  document.getElementById('editTime').value=t.time||'';
+  document.getElementById('editModal').classList.add('open');
+  setTimeout(()=>document.getElementById('editName').focus(),100);
+}
+
+function closeModal(){document.getElementById('editModal').classList.remove('open');editingIndex=-1;}
+
+function saveEdit(){
+  if(editingIndex<0)return;
+  const name=document.getElementById('editName').value.trim();if(!name)return;
+  state.tasks[editingIndex].name=name;
+  state.tasks[editingIndex].sub=document.getElementById('editSub').value.trim()||state.tasks[editingIndex].sub;
+  state.tasks[editingIndex].time=document.getElementById('editTime').value.trim();
+  saveState();renderTasks();closeModal();
+}
+
+function deleteTask(e,i){
+  e.stopPropagation();
+  if(!confirm(state.tasks[i].name+' delete?'))return;
+  if(state.tasks[i].done)state.totalDone=Math.max(0,state.totalDone-1);
+  state.tasks.splice(i,1);saveState();renderTasks();renderStats();
+}
+
+document.getElementById('editModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+function resetDay(){
+  if(!confirm('Start a new list? Progress will be reset.'))return;
+  state.tasks=JSON.parse(JSON.stringify(DEFAULT_TASKS));saveState();renderTasks();
+}
+
+function setupPWA(){
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="100" fill="#080808"/><text x="256" y="340" font-size="280" text-anchor="middle">&#128293;</text><text x="256" y="460" font-size="64" text-anchor="middle" font-weight="bold" fill="#FF4500" font-family="Arial">BEAST</text></svg>';
+  const iconUrl=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+  document.getElementById('appleIcon').href=iconUrl;
+  const m={name:"Beast Mode",short_name:"Beast Mode",display:"standalone",background_color:"#080808",theme_color:"#080808",start_url:window.location.href,icons:[{src:iconUrl,sizes:"512x512",type:"image/svg+xml"}]};
+  document.getElementById('manifestLink').href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/json'}));
+  if('serviceWorker' in navigator){
+    const sw='self.addEventListener("install",e=>self.skipWaiting());self.addEventListener("activate",e=>clients.claim());self.addEventListener("fetch",e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));';
+    navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
+  }
+}
+
+setupPWA();init();setInterval(renderDate,60000);
+</script>
+</body>
+</html>
